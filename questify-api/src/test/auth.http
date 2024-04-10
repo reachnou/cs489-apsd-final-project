@@ -1,0 +1,41 @@
+POST localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "ADMIN ADMIN",
+  "username": "admin",
+  "email": "admin@gmail.com",
+  "password": "123",
+  "roles": [
+    {
+      "title": "ROLE_ADMIN"
+    }
+  ]
+}
+
+###
+
+POST localhost:8080/api/v1/auth/register
+Content-Type: application/json
+
+{
+  "fullName": "USER USER",
+  "username": "user",
+  "email": "user@gmail.com",
+  "password": "123",
+  "roles": [
+    {
+      "title": "ROLE_USER"
+    }
+  ]
+}
+
+###
+
+POST localhost:8080/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "123"
+}

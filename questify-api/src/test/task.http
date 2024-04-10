@@ -1,0 +1,15 @@
+POST localhost:8080/api/v1/tasks?userId=1
+Content-Type: application/json
+Authorization: Beerer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiUk9MRSI6W3siaWQiOjEsInRpdGxlIjoiUk9MRV9VU0VSIn1dLCJpc3MiOiJRdWVzdGlmeSIsImlhdCI6MTcxMjc4ODI5MSwiZXhwIjoxNzEyNzkxODkxfQ.8JJTYsdq-l6sWkF9uxS07X8sLHeBoVnqiushj4-kA3I
+
+{
+  "name": "Test",
+  "description": "test",
+  "deadline": "2024-12-31T15:53:16",
+  "priority": "LOW"
+}
+
+###
+GET localhost:8080/api/v1/tasks
+Content-Type: application/json
+Authorization: Beerer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwiUk9MRSI6W3siaWQiOjEsInRpdGxlIjoiUk9MRV9VU0VSIn1dLCJpc3MiOiJRdWVzdGlmeSIsImlhdCI6MTcxMjc5Mjc4MCwiZXhwIjoxNzEyNzk2MzgwfQ.IYoJXuC5ZdDDTbe6pKUhFvno6PCV7yQeCxFikHPSnxg
