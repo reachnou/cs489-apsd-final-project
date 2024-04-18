@@ -1,5 +1,6 @@
 package edu.mui.cs489.reachnou.questify.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.mui.cs489.reachnou.questify.constants.TaskPriority;
 import edu.mui.cs489.reachnou.questify.constants.TaskStatus;
 import jakarta.persistence.*;

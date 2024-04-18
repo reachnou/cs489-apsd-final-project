@@ -1,7 +1,9 @@
 package edu.mui.cs489.reachnou.questify.config;
 
 import edu.mui.cs489.reachnou.questify.filter.JwtRequestFilter;
+import edu.mui.cs489.reachnou.questify.util.ModelMappingHelper;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,12 +37,18 @@ public class SecurityConfig {
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/api/v1/auth/register",
-                                "/api/v1/auth/login",
+                                "/questify/api/v1/auth/register",
+                                "/questify/api/v1/auth/login",
                                 "/swagger-ui**/**"
                         )
                         .permitAll()
-                        .requestMatchers("/api/v1/tasks/**").hasRole("USER")
+                        .requestMatchers(
+                                "/questify/api/v1/tasks/**",
+                                "/questify/api/v1/challenges/**"
+                        ).hasRole("USER")
+                        .requestMatchers(
+                                "/questify/api/v1/topics/**"
+                        ).hasRole("ADMIN")
                         .anyRequest()
                         .authenticated()
                 )
@@ -47,6 +56,15 @@ public class SecurityConfig {
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         return httpSecurity.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().requestMatchers(
+                "/resources/**",
+                "/v3/api-docs/**",
+                "/swagger-ui/**"
+        );
     }
 
     @Bean
@@ -67,5 +85,9 @@ public class SecurityConfig {
         return configuration.getAuthenticationManager();
     }
 
+    @Bean
+    public ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
 }

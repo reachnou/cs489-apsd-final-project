@@ -1,0 +1,4 @@
+primary #007F73
+second #4CCD99
+third #FFC700
+fourth #FFF455

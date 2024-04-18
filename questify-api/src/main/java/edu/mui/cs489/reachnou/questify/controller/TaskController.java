@@ -1,14 +1,13 @@
 package edu.mui.cs489.reachnou.questify.controller;
 
 import edu.mui.cs489.reachnou.questify.dto.requests.TaskRequest;
-import edu.mui.cs489.reachnou.questify.entity.Task;
 import edu.mui.cs489.reachnou.questify.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api/v1/tasks")
+@RequestMapping(path = "/questify/api/v1/tasks")
 @RequiredArgsConstructor
 public class TaskController {
 
@@ -16,11 +15,37 @@ public class TaskController {
 
     @PostMapping
     public ResponseEntity<?> createTask(@RequestBody TaskRequest taskRequest, @RequestParam Long userId){
-        return taskService.createTask(taskRequest, userId);
+        var task = taskService.createTask(taskRequest, userId);
+        return ResponseEntity.ok(task);
     }
 
     @GetMapping
     public ResponseEntity<?> getAllTask(){
-        return taskService.getAllTasks();
+        var tasks = taskService.getAllTasks();
+        return ResponseEntity.ok(tasks);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getTaskById(@PathVariable Long id) {
+        var task = taskService.getTaskById(id);
+        return ResponseEntity.ok(task);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<?> getTasksByUserId(@RequestParam Long userId) {
+        var tasks = taskService.getTasksByUserId(userId);
+        return ResponseEntity.ok(tasks);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateTaskById(@RequestBody TaskRequest taskRequest, @PathVariable Long id) {
+        var task = taskService.updateTaskById(taskRequest, id);
+        return ResponseEntity.ok(task);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteTaskById(@PathVariable Long id) {
+        var task = taskService.deleteTaskById(id);
+        return ResponseEntity.ok(task);
     }
 }

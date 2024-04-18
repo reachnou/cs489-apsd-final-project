@@ -9,18 +9,21 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/questify/api/v1/auth")
+@CrossOrigin
 public class AuthController {
 
     private final AuthService authService;
 
     @PostMapping(path = "/register")
     public ResponseEntity<?> register(@RequestBody UserRequest userRequest) throws Exception {
-        return authService.registerUser(userRequest);
+        var user = authService.registerUser(userRequest);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping(path = "/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest){
-        return authService.login(loginRequest);
+        var user =  authService.login(loginRequest);
+        return ResponseEntity.ok(user);
     }
 }

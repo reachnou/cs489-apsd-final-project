@@ -1,39 +1,19 @@
 package edu.mui.cs489.reachnou.questify.dto;
 
-import edu.mui.cs489.reachnou.questify.dto.requests.TaskRequest;
-import edu.mui.cs489.reachnou.questify.dto.responses.TaskResponse;
-import edu.mui.cs489.reachnou.questify.entity.Task;
+import edu.mui.cs489.reachnou.questify.constants.TaskPriority;
+import edu.mui.cs489.reachnou.questify.constants.TaskStatus;
+import lombok.Data;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
+@Data
 public class TaskDTO {
-
-    public static Task taskRequestToTask(TaskRequest taskRequest) {
-        var task = Task.builder()
-                .name(taskRequest.getName())
-                .description(taskRequest.getDescription())
-                .deadline(taskRequest.getDeadline())
-                .priority(taskRequest.getPriority())
-                .build();
-        return task;
-    }
-
-    public static TaskResponse taskToTaskResponse(Task task) {
-        return TaskResponse.builder()
-                .id(task.getId())
-                .name(task.getName())
-                .description(task.getDescription())
-                .status(task.getStatus())
-                .priority(task.getPriority())
-                .deadline(task.getDeadline())
-                .userId(task.getUser().getId())
-                .username(task.getUser().getUsername())
-                .build();
-    }
-
-    public static List<TaskResponse> taskListToTaskListResponse(List<Task> tasks) {
-        return tasks.stream()
-                .map(TaskDTO::taskToTaskResponse)
-                .toList();
-    }
+    private Long id;
+    private String name;
+    private String description;
+    private LocalDateTime deadline;
+    private TaskPriority priority;
+    private TaskStatus status;
+    private Long userId;
+    private String username;
 }
