@@ -53,7 +53,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '10px 50px',
+        padding: '15px 50px',
         backgroundColor: '#007F73',
         color: 'white',
     },
