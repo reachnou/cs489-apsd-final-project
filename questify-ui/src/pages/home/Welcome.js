@@ -4,17 +4,17 @@ import { useEffect } from "react";
 import { ROLES } from "../../constants/roles";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { userDetails } from "../../api/auth";
 
 function Welcome() {
     const navigate = useNavigate();
     const isLogin = localStorage.getItem("isLogin");
-    const user = JSON.parse(localStorage.getItem("user"));
 
     useEffect(() => {
-        if (isLogin !== undefined && isLogin === "true" && user?.roles[0]?.title === ROLES.ROLE_USER) {
+        if (isLogin !== undefined && isLogin === "true" && userDetails?.roles[0]?.title === ROLES.ROLE_USER) {
             navigate(ROUTES.USER_HOME_PAGE)
         }
-        if (isLogin !== undefined && isLogin === "true" && user?.roles[0]?.title === ROLES.ROLE_ADMIN) {
+        if (isLogin !== undefined && isLogin === "true" && userDetails?.roles[0]?.title === ROLES.ROLE_ADMIN) {
             navigate(ROUTES.ADMIN_DASHBOARD)
         }
     })

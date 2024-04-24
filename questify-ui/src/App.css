@@ -1,0 +1,39 @@
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    /* background: #4CCD99; */
+    background: #ffffff;
+  
+    /* Chrome 10-25, Safari 5.1-6 */
+    /* background: -webkit-linear-gradient(
+      to right,
+      #4CCD99,
+      rgba(80, 139, 252, 1)
+    ); */
+  
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /* background: linear-gradient(
+      to right,
+      #4CCD99,
+      rgba(80, 139, 252, 1)
+    ); */
+  }
+  
+  .mask-custom {
+    background: #4CCD99;
+    border-radius: 2em;
+    backdrop-filter: blur(25px);
+    /* border: 2px solid #FFC700; */
+    background-clip: padding-box;
+    box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+  }
+
+  #list1 .form-control {
+    border-color: transparent;
+  }
+  #list1 .form-control:focus {
+    border-color: transparent;
+    box-shadow: none;
+  }
+  #list1 .select-input.form-control[readonly]:not([disabled]) {
+    background-color: #fbfbfb;
+  }

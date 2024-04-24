@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import { login } from "../api/auth";
 import { ROUTES } from "../constants/routes";
 import { ROLES } from "../constants/roles";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { login } from "../api/auth";
 
 function Signin() {
 
@@ -17,12 +17,14 @@ function Signin() {
             body[key] = value;
         }
         login(body)
-            .then(res => {
-                if (res) {
-                    if (res.roles[0]?.title === ROLES.ROLE_USER) {
+            .then(user => {
+                if (user) {
+                    localStorage.setItem("isLogin", true)
+                    localStorage.setItem('user', JSON.stringify(user)); 
+                    if (user.roles[0]?.title === ROLES.ROLE_USER) {
                         navigate(ROUTES.USER_HOME_PAGE)
                     }
-                    if (res.roles[0]?.title === ROLES.ROLE_ADMIN) {
+                    if (user.roles[0]?.title === ROLES.ROLE_ADMIN) {
                         navigate(ROUTES.ADMIN_DASHBOARD)
                     }
                 }
@@ -32,7 +34,7 @@ function Signin() {
     }
 
     return (
-        <div className="container">
+        <div>
             <Navbar/>
             <div className="mx-auto py-4 my-3" style={{ width: "400px" }}>
                 {/* <div className="text-center mt-5 mb-3">
@@ -41,6 +43,9 @@ function Signin() {
                     </Link>
                     <h2 className="mt-4" style={{color: "#01377D"}}>Login</h2>
                 </div> */}
+                <div className="text-center mt-5 mb-3">
+                    <h2 className="mt-4" style={{color: "#007F73"}}>Login</h2>
+                </div>
                 <form className="border border-1 py-4 px-4 rounded-3" onSubmit={handleLogin}>
                     <div className="mb-3">
                         <label htmlFor="username" className="form-label">

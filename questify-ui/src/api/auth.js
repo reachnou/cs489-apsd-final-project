@@ -4,13 +4,6 @@ import axios from './axios';
 export const login = async (data) => {
     try {
         const response = await axios.post('/auth/login', data);
-        if (response.data) {
-            const user = response.data;
-            console.log("User: ", user);
-            localStorage.setItem("isLogin", true)
-            localStorage.setItem('user', JSON.stringify(user));  // Storing the token
-            axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-        }
         return response.data;
     } catch (error) {
         console.error('Login failed:', error);
@@ -29,5 +22,7 @@ const storedToken = localStorage.getItem('user');
 if (storedToken) {
     axios.defaults.headers.common['Authorization'] = `Bearer ${storedToken}`;
 }
+
+export const userDetails = JSON.parse(localStorage.getItem("user"));
 
 // You might also want to handle token refresh logic here
