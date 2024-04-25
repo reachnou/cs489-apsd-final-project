@@ -1,6 +1,5 @@
 package edu.mui.cs489.reachnou.questify.controller;
 
-import edu.mui.cs489.reachnou.questify.dto.ChallengeDTO;
 import edu.mui.cs489.reachnou.questify.dto.requests.ChallengeRequest;
 import edu.mui.cs489.reachnou.questify.service.ChallengeService;
 import lombok.RequiredArgsConstructor;

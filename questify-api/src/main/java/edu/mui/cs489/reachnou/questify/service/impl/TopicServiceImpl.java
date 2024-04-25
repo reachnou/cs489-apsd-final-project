@@ -1,15 +1,13 @@
 package edu.mui.cs489.reachnou.questify.service.impl;
 
-import edu.mui.cs489.reachnou.questify.dto.TopicDTO;
+import edu.mui.cs489.reachnou.questify.dto.TopicDto;
 import edu.mui.cs489.reachnou.questify.dto.requests.TopicRequest;
-import edu.mui.cs489.reachnou.questify.dto.responses.TopicResponse;
 import edu.mui.cs489.reachnou.questify.entity.Topic;
 import edu.mui.cs489.reachnou.questify.exception.ResourceNotFoundException;
 import edu.mui.cs489.reachnou.questify.repository.TopicRepository;
 import edu.mui.cs489.reachnou.questify.service.TopicService;
 import edu.mui.cs489.reachnou.questify.util.ModelMappingHelper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,40 +16,40 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TopicServiceImpl implements TopicService {
     private final TopicRepository topicRepository;
-    private final ModelMappingHelper<Topic, TopicDTO, TopicRequest> modelMappingHelper;
+    private final ModelMappingHelper<Topic, TopicDto, TopicRequest> modelMappingHelper;
 
     @Override
-    public TopicDTO createTopic(TopicRequest topicRequest) {
+    public TopicDto createTopic(TopicRequest topicRequest) {
         var topic = modelMappingHelper.convertRequestToEntity(topicRequest, Topic.class);
         var response = topicRepository.save(topic);
-        return modelMappingHelper.convertEntityToDto(response, TopicDTO.class);
+        return modelMappingHelper.convertEntityToDto(response, TopicDto.class);
     }
 
     @Override
-    public TopicDTO getTopicById(Long id) {
+    public TopicDto getTopicById(Long id) {
         var topic = simpleFindTopicById(id);
-        return modelMappingHelper.convertEntityToDto(topic, TopicDTO.class);
+        return modelMappingHelper.convertEntityToDto(topic, TopicDto.class);
     }
 
     @Override
-    public List<TopicDTO> getAllTopics() {
+    public List<TopicDto> getAllTopics() {
         var topics = topicRepository.findAll();
-        return modelMappingHelper.convertEntityListToDtoList(topics, TopicDTO.class);
+        return modelMappingHelper.convertEntityListToDtoList(topics, TopicDto.class);
     }
 
     @Override
-    public TopicDTO deleteTopicById(Long id) {
+    public TopicDto deleteTopicById(Long id) {
         var topic = simpleFindTopicById(id);
         topicRepository.deleteById(id);
-        return modelMappingHelper.convertEntityToDto(topic, TopicDTO.class);
+        return modelMappingHelper.convertEntityToDto(topic, TopicDto.class);
     }
 
     @Override
-    public TopicDTO updateTopicById(TopicRequest topicRequest, Long id) {
+    public TopicDto updateTopicById(TopicRequest topicRequest, Long id) {
         var oldTopic = simpleFindTopicById(id);
         oldTopic.setName(topicRequest.getName());
         var response = topicRepository.save(oldTopic);
-        return modelMappingHelper.convertEntityToDto(response, TopicDTO.class);
+        return modelMappingHelper.convertEntityToDto(response, TopicDto.class);
     }
 
     private Topic simpleFindTopicById(Long id) {

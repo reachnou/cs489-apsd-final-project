@@ -1,8 +1,7 @@
-// import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import Sidebar from "../../components/admin/Sidebar";
 
-function ChallengePage() {
+function UserPage() {
     return (
         <div>
             <Navbar/>
@@ -11,7 +10,7 @@ function ChallengePage() {
                     <Sidebar/>
                 </div>
                 <div className="col-10">
-                    <h1>ChallengePage</h1>
+                    <h1>UserPage</h1>
                 </div>
             </div>
             {/* <Footer/> */}
@@ -19,4 +18,4 @@ function ChallengePage() {
     );
 }
 
-export default ChallengePage;
+export default UserPage;

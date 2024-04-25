@@ -1,7 +1,7 @@
-function FlashCard() {
+function FlashCardPage() {
     return (
         <div>
-            FlashCard
+            FlashCardPage
         </div>
     );
 }

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import store from "../app/store";
-import { deleteTaskById, getTaskByUserId } from "../features/task/TaskSlice";
-import { userDetails } from "../api/auth";
+import store from "../../app/store";
+import { deleteTaskById, getTaskByUserId } from "../../features/task/TaskSlice";
+import { userDetails } from "../../api/auth";
 import Swal from 'sweetalert2'
 
 function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
     const [tasks, setTasks] = useState();
     const tasksStore = store.getState().task.tasks
+    const [refresh, setRefresh] = useState();
 
     useEffect(() => {
         if (tasksStore.length === 0) {
@@ -18,7 +19,7 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
             console.log("Store");
             setTasks(tasksStore)
         }
-    }, [tasksStore])
+    }, [tasksStore, refresh])
 
     function handleDeleteTask(task) {
         Swal.fire({
@@ -32,14 +33,15 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
         }).then((result) => {
             if (result.isConfirmed) {
                 store.dispatch(deleteTaskById(task?.id)).then((res) => {
-                    console.log("Deleted: ", res);
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
+                    if (res?.payload) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        });
+                        setRefresh(res?.payload.id)
+                    }
                 })
-
             }
         });
     }
@@ -83,7 +85,7 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
                         </thead>
                         <tbody>
                             {tasks?.map((task) => (
-                                <tr className={task.status === "COMPLETED"? "fw-normal table-success" : "fw-normal"} key={task.id}>
+                                <tr className={task.status === "COMPLETED" ? "fw-normal table-success" : "fw-normal"} key={task.id}>
                                     <th>
                                         <span className="ms-2">{task?.name}</span>
                                     </th>
@@ -107,9 +109,9 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
                                         <h6 className="mb-0">
                                             <span className={
                                                 task?.status === "TODO" ? "badge bg-primary" :
-                                                    task?.status === "IN_PROGRESS" ? "badge bg-warning" : 
-                                                    task?.status === "COMPLETED" ? "badge bg-success" : 
-                                                    task?.status === "CANCELLED" ? "badge bg-danger" : "badge bg-info"}>
+                                                    task?.status === "IN_PROGRESS" ? "badge bg-warning" :
+                                                        task?.status === "COMPLETED" ? "badge bg-success" :
+                                                            task?.status === "CANCELLED" ? "badge bg-danger" : "badge bg-info"}>
                                                 {task?.status}
                                             </span>
                                         </h6>

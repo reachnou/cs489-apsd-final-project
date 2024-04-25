@@ -1,9 +1,8 @@
-// import Footer from "../../components/Footer";
+// import Footer from "../components/Footer";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/user/Sidebar";
-import TodoListTable from "../../components/user/TodoListTable";
 
-function UserHomePage() {
+function ChallengePage() {
     return (
         <div>
             <Navbar/>
@@ -12,13 +11,12 @@ function UserHomePage() {
                     <Sidebar/>
                 </div>
                 <div className="col-10">
-                    <h1>Homepage</h1>
-                    <TodoListTable/>
+                    <h1>ChallengePage</h1>
                 </div>
             </div>
             {/* <Footer/> */}
         </div>
-    )
+    );
 }
 
-export default UserHomePage;
+export default ChallengePage;
