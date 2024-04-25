@@ -1,6 +1,6 @@
 package edu.mui.cs489.reachnou.questify.service.impl;
 
-import edu.mui.cs489.reachnou.questify.dto.ChallengeDTO;
+import edu.mui.cs489.reachnou.questify.dto.ChallengeDto;
 import edu.mui.cs489.reachnou.questify.dto.requests.ChallengeRequest;
 import edu.mui.cs489.reachnou.questify.entity.Challenge;
 import edu.mui.cs489.reachnou.questify.exception.ResourceNotFoundException;
@@ -22,10 +22,10 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final ChallengeRepository challengeRepository;
     private final UserRepository userRepository;
     private final TopicRepository topicRepository;
-    private final ModelMappingHelper<Challenge, ChallengeDTO, ChallengeRequest> modelMappingHelper;
+    private final ModelMappingHelper<Challenge, ChallengeDto, ChallengeRequest> modelMappingHelper;
 
     @Override
-    public ChallengeDTO createChallenge(ChallengeRequest ChallengeRequest, Long hostId, Long topicId) {
+    public ChallengeDto createChallenge(ChallengeRequest ChallengeRequest, Long hostId, Long topicId) {
         var challenge = modelMappingHelper.convertRequestToEntity(ChallengeRequest, Challenge.class);
         var host = userRepository.findById(hostId).orElseThrow(() -> new UserNotFoundException("User ID " + hostId + " not found!"));
         var topic = topicRepository.findById(topicId).orElseThrow(()-> new ResourceNotFoundException("Topic ID " + topicId + " not found!"));
@@ -35,30 +35,30 @@ public class ChallengeServiceImpl implements ChallengeService {
         challenge.setCompetitors(new ArrayList<>());
 
         var response = challengeRepository.save(challenge);
-        return modelMappingHelper.convertEntityToDto(response, ChallengeDTO.class);
+        return modelMappingHelper.convertEntityToDto(response, ChallengeDto.class);
     }
 
     @Override
-    public ChallengeDTO getChallengeById(Long id) {
+    public ChallengeDto getChallengeById(Long id) {
         var challenge = simpleGetChallengeById(id);
-        return modelMappingHelper.convertEntityToDto(challenge, ChallengeDTO.class);
+        return modelMappingHelper.convertEntityToDto(challenge, ChallengeDto.class);
     }
 
     @Override
-    public List<ChallengeDTO> getAllChallenges() {
+    public List<ChallengeDto> getAllChallenges() {
         var challenges = challengeRepository.findAll();
-        return modelMappingHelper.convertEntityListToDtoList(challenges, ChallengeDTO.class);
+        return modelMappingHelper.convertEntityListToDtoList(challenges, ChallengeDto.class);
     }
 
     @Override
-    public ChallengeDTO deleteChallengeById(Long id) {
+    public ChallengeDto deleteChallengeById(Long id) {
         var challenge = simpleGetChallengeById(id);
         challengeRepository.deleteById(id);
-        return modelMappingHelper.convertEntityToDto(challenge, ChallengeDTO.class);
+        return modelMappingHelper.convertEntityToDto(challenge, ChallengeDto.class);
     }
 
     @Override
-    public ChallengeDTO updateChallengeById(ChallengeRequest challengeRequest, Long id) {
+    public ChallengeDto updateChallengeById(ChallengeRequest challengeRequest, Long id) {
         var oldChallenge = simpleGetChallengeById(id);
 
         oldChallenge.setChallengeName(challengeRequest.getChallengeName());
@@ -68,7 +68,7 @@ public class ChallengeServiceImpl implements ChallengeService {
         oldChallenge.setChallengeStatus(challengeRequest.getChallengeStatus());
 
         var response = challengeRepository.save(oldChallenge);
-        return modelMappingHelper.convertEntityToDto(response, ChallengeDTO.class);
+        return modelMappingHelper.convertEntityToDto(response, ChallengeDto.class);
     }
 
     private Challenge simpleGetChallengeById(Long id) {

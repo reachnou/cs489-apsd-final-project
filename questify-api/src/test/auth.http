@@ -2,8 +2,8 @@ POST localhost:8080/questify/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "fullName": "ADMIN ADMIN",
-  "username": "admin1",
+  "fullName": "ADMIN",
+  "username": "admin",
   "email": "admin@gmail.com",
   "password": "123",
   "roles": [
@@ -19,8 +19,8 @@ POST localhost:8080/questify/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "fullName": "USER USER",
-  "username": "user1",
+  "fullName": "Reach Nou",
+  "username": "user",
   "email": "user@gmail.com",
   "password": "123",
   "roles": [

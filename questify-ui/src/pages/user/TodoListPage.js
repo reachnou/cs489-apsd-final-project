@@ -1,9 +1,9 @@
-// import Footer from "../../components/Footer";
+// import Footer from "../components/Footer";
 import Navbar from "../../components/Navbar";
+import CreateTodoListForm from "../../components/user/CreateTodoListForm";
 import Sidebar from "../../components/user/Sidebar";
-import TodoListTable from "../../components/user/TodoListTable";
 
-function UserHomePage() {
+function TodoListPage() {
     return (
         <div>
             <Navbar/>
@@ -12,13 +12,12 @@ function UserHomePage() {
                     <Sidebar/>
                 </div>
                 <div className="col-10">
-                    <h1>Homepage</h1>
-                    <TodoListTable/>
+                    <CreateTodoListForm/>
                 </div>
             </div>
             {/* <Footer/> */}
         </div>
-    )
+    );
 }
 
-export default UserHomePage;
+export default TodoListPage;

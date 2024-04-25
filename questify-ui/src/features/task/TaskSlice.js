@@ -19,7 +19,7 @@ export const taskSlice = createSlice({
         })
         .addCase(deleteTaskById.fulfilled, (state, action) => {
             let afterDeleted = state.tasks.filter(task => task.id !== action.payload.id)
-            state.tasks = afterDeleted
+            state.tasks = [...afterDeleted]
         })
         .addCase(updateTaskById.fulfilled, (state, action) => {
             let afterDeleted = state.tasks.filter(task => task.id !== action.payload.id)

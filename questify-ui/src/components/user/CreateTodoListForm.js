@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import TodoListTable from './TodoListTable';
-import store from '../app/store';
-import { createTask, getTaskByUserId, updateTaskById } from '../features/task/TaskSlice';
-import { userDetails } from '../api/auth';
+import store from '../../app/store';
+import { createTask, updateTaskById } from '../../features/task/TaskSlice';
 import Swal from 'sweetalert2';
 
 const CreateTodoListForm = () => {
@@ -29,7 +28,7 @@ const CreateTodoListForm = () => {
     if (isUpdate === "true") {
       console.log("Data", formData);
       store.dispatch(updateTaskById(taskId, formData)).then((res) => {
-        if (res?.id) {
+        if (res?.payload) {
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -49,7 +48,24 @@ const CreateTodoListForm = () => {
       })
 
     } else {
-      store.dispatch(createTask(formData)).then((res) => store.dispatch(getTaskByUserId(userDetails.id)))
+      store.dispatch(createTask(formData)).then((res) => {
+        if (res?.payload) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Your work has been saved",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          setFormData({
+            name: '',
+            description: '',
+            deadline: '',
+            priority: '',
+            status: 'TODO'
+          })
+        }
+      })
     }
   };
 

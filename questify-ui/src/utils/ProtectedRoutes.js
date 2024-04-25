@@ -1,7 +1,7 @@
 import {useRoutes} from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import UserHomePage from "../pages/home/UserHomePage";
-import Dashboard from "../pages/home/Dashboard";
+import Dashboard from "../pages/home/AdminDashboard";
 
 export default function ProtectedRoutes() {
     return useRoutes([

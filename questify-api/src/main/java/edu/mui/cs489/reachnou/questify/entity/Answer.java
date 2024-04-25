@@ -2,10 +2,12 @@ package edu.mui.cs489.reachnou.questify.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -14,7 +16,8 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String content;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+    private boolean isCorrect;
 }

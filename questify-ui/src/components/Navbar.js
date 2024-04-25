@@ -17,26 +17,19 @@ function Navbar() {
         }
     }, [isLogin])
 
-    const handleLogout = () => {
-        localStorage.clear("isLogin");
-        localStorage.clear("user");
-        navigate(ROUTES.WELCOME)
-    }
-
     return (
         <nav style={styles.navbar}>
-            <h1 style={styles.logo}>Questify</h1>
+            <h1 style={styles.logo} className='fw-bold'>Questify</h1>
             {JSON.parse(isLogin) 
             ?
                 (
                     <div style={styles.links}>
-                        <label>{user?.fullName}</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        <button onClick={() => handleLogout()} style={{ marginRight: "10px" }}>Logout</button>
+                        <label className='fw-bold mt-1'>{user?.fullName}</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
                 ) 
             :
                 (
-                    <div style={styles.links}>
+                    <div style={styles.links} className='fw-bold'>
                         <Link to={NAV_ROUTES.HOME} style={styles.link}>Home</Link>
                         <Link to={NAV_ROUTES.ABOUT} style={styles.link}>About</Link>
                         <Link to={NAV_ROUTES.FEATURES} style={styles.link}>Features</Link>
@@ -54,13 +47,13 @@ const styles = {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '15px 50px',
-        backgroundColor: '#007F73',
+        backgroundColor: '#4CCD99',
         color: 'white',
     },
     logo: {
         margin: 0,
         fontSize: '24px',
-        color: '#FFF455'
+        color: '#FFF455',
     },
     links: {
         display: 'flex',

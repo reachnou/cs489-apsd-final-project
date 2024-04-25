@@ -1,7 +1,13 @@
 import { Link } from "react-router-dom"
-import { ROUTES } from "../constants/routes"
+import { ROUTES } from "../../constants/routes"
 
 function Sidebar() {
+
+    const handleLogout = () => {
+        localStorage.clear("isLogin");
+        localStorage.clear("user");
+    }
+
     return (
         <div>
             <div class="container-fluid bg-light vh-100">
@@ -15,8 +21,8 @@ function Sidebar() {
                     <li class="list-group-item">
                         <Link to={ROUTES.CHALLENGE}>Challenges</Link>
                     </li>
-                    <li class="list-group-item">
-                        <Link to={ROUTES.WELCOME}>Logout</Link>
+                    <li class="list-group-item" onClick={handleLogout}>
+                        <Link to={ROUTES.WELCOME}><span className="text-danger">Logout</span></Link>
                     </li>
                 </ul>
             </div>

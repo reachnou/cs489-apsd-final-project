@@ -5,7 +5,12 @@ export const ROUTES = {
     USER_HOME_PAGE: "/home",
     ADMIN_DASHBOARD: "/dashboard",
     TODO_LIST: "/todo",
-    CHALLENGE: "/challenge"
+    CHALLENGE: "/challenge",
+    TOPIC: "/topics",
+    CHALLENGE_IN_ADMIN: "/challenges/list",
+    USER: "/users",
+    TOPIC_DETAILS: "/topics/:id"
+
 }
 
 export const NAV_ROUTES = {

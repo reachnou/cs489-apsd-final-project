@@ -1,16 +1,14 @@
 package edu.mui.cs489.reachnou.questify.dto;
 
-import edu.mui.cs489.reachnou.questify.dto.requests.UserRequest;
 import edu.mui.cs489.reachnou.questify.dto.responses.UserResponse;
 import edu.mui.cs489.reachnou.questify.entity.Role;
 import edu.mui.cs489.reachnou.questify.entity.User;
-import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class UserDTO {
+public class UserDto {
     private Long id;
     private String fullName;
     private String username;

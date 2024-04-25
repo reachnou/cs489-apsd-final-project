@@ -1,9 +1,9 @@
-// import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
-import CreateTodoListForm from "../components/CreateTodoListForm";
-import Sidebar from "../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import TopicDetailsForm from "../../components/admin/TopicDetailsForm";
+import Sidebar from "../../components/admin/Sidebar";
 
-function TodoListPage() {
+
+function TopicDetailsPage() {
     return (
         <div>
             <Navbar/>
@@ -12,7 +12,7 @@ function TodoListPage() {
                     <Sidebar/>
                 </div>
                 <div className="col-10">
-                    <CreateTodoListForm/>
+                    <TopicDetailsForm/>
                 </div>
             </div>
             {/* <Footer/> */}
@@ -20,4 +20,4 @@ function TodoListPage() {
     );
 }
 
-export default TodoListPage;
+export default TopicDetailsPage

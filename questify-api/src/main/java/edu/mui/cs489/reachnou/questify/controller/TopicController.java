@@ -1,6 +1,5 @@
 package edu.mui.cs489.reachnou.questify.controller;
 
-import edu.mui.cs489.reachnou.questify.dto.TopicDTO;
 import edu.mui.cs489.reachnou.questify.dto.requests.TopicRequest;
 import edu.mui.cs489.reachnou.questify.service.TopicService;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/questify/api/v1/topics")
+@CrossOrigin
 public class TopicController {
     private final TopicService topicService;
 

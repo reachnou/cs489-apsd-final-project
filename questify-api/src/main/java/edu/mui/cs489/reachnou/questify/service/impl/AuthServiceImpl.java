@@ -1,6 +1,6 @@
 package edu.mui.cs489.reachnou.questify.service.impl;
 
-import edu.mui.cs489.reachnou.questify.dto.UserDTO;
+import edu.mui.cs489.reachnou.questify.dto.UserDto;
 import edu.mui.cs489.reachnou.questify.dto.requests.LoginRequest;
 import edu.mui.cs489.reachnou.questify.dto.requests.UserRequest;
 import edu.mui.cs489.reachnou.questify.dto.responses.UserResponse;
@@ -26,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtTokenUtil jwtTokenUtil;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ModelMappingHelper<User, UserDTO, UserRequest> modelMappingHelper;
+    private final ModelMappingHelper<User, UserDto, UserRequest> modelMappingHelper;
 
     @Override
     public UserResponse login(LoginRequest loginRequest) {
@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
 
             UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-            UserResponse userResponse = UserDTO.userResponse(userDetails.getUser());
+            UserResponse userResponse = UserDto.userResponse(userDetails.getUser());
 
             String token = jwtTokenUtil.generateToken(userDetails.getUser());
             userResponse.setToken(token);
@@ -49,11 +49,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserDTO registerUser(UserRequest userRequest) {
+    public UserDto registerUser(UserRequest userRequest) {
         if (userRepository.findByUsername(userRequest.getUsername()) != null) throw new DuplicatedUserException("Username already exist!");
         var user = modelMappingHelper.convertRequestToEntity(userRequest, User.class);
         user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
         var result = userRepository.save(user);
-        return modelMappingHelper.convertEntityToDto(result, UserDTO.class);
+        return modelMappingHelper.convertEntityToDto(result, UserDto.class);
     }
 }
