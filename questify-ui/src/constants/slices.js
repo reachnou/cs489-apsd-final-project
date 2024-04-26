@@ -1,4 +1,6 @@
 export const SLICES = {
     TASK: "task",
-    TOPIC: "topic"
+    TOPIC: "topic",
+    QUESTION: "question",
+    ANSWER: "answer"
 }

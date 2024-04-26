@@ -21,7 +21,7 @@ function Dashboard() {
             console.log("Store");
             setTopic(topicsStore)
         }
-    }, [topicsStore])
+    }, [])
     return (
         <div>
             <Navbar />
