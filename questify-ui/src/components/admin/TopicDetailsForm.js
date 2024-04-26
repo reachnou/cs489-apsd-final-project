@@ -3,12 +3,22 @@ import { useParams } from 'react-router-dom';
 import store from '../../app/store';
 import { getTopicById } from '../../features/topic/topicSlice';
 import QuestionCard from './QuestionCard';
+import { createQuestion } from '../../features/question/questionSlice';
+import Swal from 'sweetalert2';
 
 const TopicDetailsForm = () => {
     const { id } = useParams()
     const [isEditTopic, setIsEditTopic] = useState(false)
+    const [isQuestionUpdate, setIsQuestionUpdate] = useState(false);
+    const [refresh, setRefresh] = useState();
     const [topic, setTopic] = useState()
     const topics = store.getState().topic.topics
+    const [formData, setFormData] = useState({
+        content: '',
+        difficulty: '',
+        topicId: id,
+    });
+
 
     useEffect(() => {
         if (topics?.length === 0) {
@@ -23,12 +33,77 @@ const TopicDetailsForm = () => {
             const top = topics?.filter(t => t.id == id)
             setTopic(top[0])
         }
-
-    }, [topics, id])
+    }, [id, refresh])
 
     const handlerSetIsEditTopic = () => {
         setIsEditTopic(current => !current)
     }
+
+    const handlerSetIsUpdateQuestion = () => {
+        setIsQuestionUpdate(current => !current)
+    }
+
+    const handlerCancelUpdateQuestion = () => {
+        handlerSetIsUpdateQuestion()
+        setFormData({
+            content: '',
+            difficulty: '',
+            topicId: id,
+        })
+    }
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (isQuestionUpdate) {
+            console.log("Data", formData);
+            // store.dispatch(updateTaskById(taskId, formData)).then((res) => {
+            //     if (res?.payload) {
+            //         Swal.fire({
+            //             position: "top-end",
+            //             icon: "success",
+            //             title: "Your work has been saved",
+            //             showConfirmButton: false,
+            //             timer: 1500
+            //         });
+            //         setIsUpdate("false")
+            //         setFormData({
+            //             name: '',
+            //             description: '',
+            //             deadline: '',
+            //             priority: '',
+            //             status: 'TODO'
+            //         })
+            //     }
+            // })
+
+        } else {
+            store.dispatch(createQuestion(formData)).then((res) => {
+                if (res?.payload) {
+                    Swal.fire({
+                        position: "center",
+                        icon: "success",
+                        title: "Your work has been saved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    setFormData({
+                        content: '',
+                        difficulty: '',
+                        topicId: id,
+                    })
+                    setRefresh(res?.payload?.id)
+                }
+            })
+        }
+    };
 
     return (
         <div className='container'>
@@ -78,27 +153,28 @@ const TopicDetailsForm = () => {
                     <div class="col">
                         <div id="list1">
                             <div class="card-body">
-                                <form>
+                                <form onSubmit={handleSubmit}>
                                     <div class="pb-2">
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row d-flex justify-content-between align-items-center">
                                                     <input type="text" class="form-control form-control-lg fs-5"
-                                                        // name="name"
-                                                        // value={formData.name}
-                                                        // onChange={handleChange}
-                                                        // required
+                                                        name="content"
+                                                        value={formData.content}
+                                                        onChange={handleChange}
+                                                        required
                                                         placeholder="Enter new question here..." />
                                                 </div>
                                                 <hr />
-                                                <select className='form-select me-3 mt-3' style={{ width: "170px", height: "37px" }} name="difficulty" required> {/*value={formData.difficulty} onChange={handleChange} */}
+                                                <select className='form-select me-3 mt-3' style={{ width: "170px", height: "37px" }} name="difficulty" value={formData.difficulty} onChange={handleChange} required>
                                                     <option value="">Select Difficulty</option>
                                                     <option value="EASY">EASY</option>
                                                     <option value="MEDIUM">MEDIUM</option>
                                                     <option value="HARD">HARD</option>
                                                 </select>
                                                 <div className='float-end'>
-                                                    <button type="submit" data-mdb-button-init data-mdb-ripple-init className="btn btn-success">Add Question</button>
+                                                    <button type="submit" data-mdb-button-init data-mdb-ripple-init className={isQuestionUpdate? "btn btn-warning me-3" : "btn btn-success"}>{isQuestionUpdate? "Update question" : "Add Question"}</button>
+                                                    {isQuestionUpdate? <button type="button" data-mdb-button-init data-mdb-ripple-init className="btn btn-secondary" onClick={handlerCancelUpdateQuestion}>Cancel</button> : "" }
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +187,7 @@ const TopicDetailsForm = () => {
             </div>
             <div>
                 {topic?.questions?.map((item) => (
-                    <QuestionCard key={item.id} question={item} />
+                    <QuestionCard key={item.id} question={item} handlerSetIsUpdateQuestion={handlerSetIsUpdateQuestion} setRefresh={setRefresh} setFormDataQuestion={setFormData}/>
                 ))}
             </div>
 

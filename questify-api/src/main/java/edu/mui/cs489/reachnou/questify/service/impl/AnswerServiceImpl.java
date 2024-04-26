@@ -22,10 +22,21 @@ public class AnswerServiceImpl implements AnswerService {
         var question = questionRepository.findById(answerRequest.getQuestionId()).orElseThrow(() -> new ResourceNotFoundException("Question not found"));
         var answer = Answer.builder()
                 .content(answerRequest.getContent())
-                .isCorrect(answerRequest.isCorrect())
+                .answerState(answerRequest.getAnswerState())
                 .question(question)
                 .build();
         var response = answerRepository.save(answer);
         return modelMappingHelper.convertEntityToDto(response, AnswerDto.class);
+    }
+
+    @Override
+    public AnswerDto deleteAnswerById(Long id) {
+        var answer = simpleFindAnswerById(id);
+        answerRepository.delete(answer);
+        return modelMappingHelper.convertEntityToDto(answer, AnswerDto.class);
+    }
+
+    private Answer simpleFindAnswerById(Long id) {
+        return answerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Answer not found"));
     }
 }

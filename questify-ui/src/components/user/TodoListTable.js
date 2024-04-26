@@ -19,7 +19,7 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
             console.log("Store");
             setTasks(tasksStore)
         }
-    }, [tasksStore, refresh])
+    }, [refresh])
 
     function handleDeleteTask(task) {
         Swal.fire({

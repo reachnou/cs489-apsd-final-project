@@ -20,4 +20,10 @@ public class AnswerController {
         var answer = answerService.createAnswer(answerRequest);
         return ResponseEntity.ok(answer);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteAnswerById(@PathVariable Long id) {
+        var answer = answerService.deleteAnswerById(id);
+        return ResponseEntity.ok(answer);
+    }
 }

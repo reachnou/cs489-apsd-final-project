@@ -11,6 +11,8 @@ import edu.mui.cs489.reachnou.questify.util.ModelMappingHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class QuestionServiceImpl implements QuestionService {
@@ -27,5 +29,40 @@ public class QuestionServiceImpl implements QuestionService {
                                                 .build();
         var response = questionRepository.save(question);
         return modelMappingHelper.convertEntityToDto(response, QuestionDto.class);
+    }
+
+    @Override
+    public QuestionDto deleteQuestionById(Long id) {
+        var question = simpleGetQuestionById(id);
+        questionRepository.deleteById(id);
+        return modelMappingHelper.convertEntityToDto(question, QuestionDto.class);
+    }
+
+    @Override
+    public List<QuestionDto> getAllQuestions() {
+        var questions = questionRepository.findAll();
+        return modelMappingHelper.convertEntityListToDtoList(questions, QuestionDto.class);
+    }
+
+    @Override
+    public QuestionDto updateQuestion(Long id, QuestionRequest questionRequest) {
+        var question = simpleGetQuestionById(id);
+        var topic = topicRepository.findById(questionRequest.getTopicId()).orElseThrow(() -> new ResourceNotFoundException("Topic not found"));
+        question.setContent(questionRequest.getContent());
+        question.setDifficulty(questionRequest.getDifficulty());
+        question.setTopic(topic);
+        var response = questionRepository.save(question);
+        return modelMappingHelper.convertEntityToDto(response, QuestionDto.class);
+    }
+
+    @Override
+    public QuestionDto getQuestionById(Long id) {
+        var question = simpleGetQuestionById(id);
+        return modelMappingHelper.convertEntityToDto(question, QuestionDto.class);
+    }
+
+
+    private Question simpleGetQuestionById(Long id) {
+        return questionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Question not found"));
     }
 }

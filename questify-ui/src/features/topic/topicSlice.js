@@ -17,14 +17,6 @@ export const topicSlice = createSlice({
         .addCase(createTopic.fulfilled, (state, action) => {
             state.topics = [...state.topics, action.payload]
         })
-        // .addCase(deleteTaskById.fulfilled, (state, action) => {
-        //     let afterDeleted = state.tasks.filter(task => task.id !== action.payload.id)
-        //     state.tasks = [...afterDeleted]
-        // })
-        // .addCase(updateTaskById.fulfilled, (state, action) => {
-        //     let afterDeleted = state.tasks.filter(task => task.id !== action.payload.id)
-        //     state.tasks = [...afterDeleted, action.payload]
-        // })
     }
 });
 
@@ -51,21 +43,5 @@ export const getTopicById = createAsyncThunk(
         return response.data
     }
 )
-
-// export const deleteTaskById = createAsyncThunk(
-//     "/tasks/delete",
-//     async (id) => {
-//         const response = await taskServices.remove(id)
-//         return response.data
-//     }
-// )
-
-// export const updateTaskById = createAsyncThunk(
-//     "/tasks/updateTaskById",
-//     async (id, data) => {
-//         const response = await taskServices.update(id, data)
-//         return response.data
-//     }
-// )
 
 export default topicSlice.reducer

@@ -1,5 +1,6 @@
 package edu.mui.cs489.reachnou.questify.entity;
 
+import edu.mui.cs489.reachnou.questify.constants.AnswerState;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,5 +20,5 @@ public class Answer {
     @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
-    private boolean isCorrect;
+    private AnswerState answerState;
 }

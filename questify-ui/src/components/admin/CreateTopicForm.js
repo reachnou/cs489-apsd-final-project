@@ -8,6 +8,7 @@ import { ROUTES } from '../../constants/routes';
 
 const CreateTopicForm = () => {
     const [topics, setTopic] = useState()
+    const [refresh, setRefresh] = useState()
     const topicsStore = store.getState().topic.topics
     const [formData, setFormData] = useState({
         name: '',
@@ -23,7 +24,7 @@ const CreateTopicForm = () => {
             console.log("Store");
             setTopic(topicsStore)
         }
-    }, [topicsStore])
+    }, [refresh])
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -40,6 +41,7 @@ const CreateTopicForm = () => {
                 setFormData({
                     name: '',
                 })
+                setRefresh(res?.payload?.id)
             }
         })
     }

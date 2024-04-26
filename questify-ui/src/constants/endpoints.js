@@ -1,4 +1,6 @@
 export const ENDPOINTS = {
     TASK: "/tasks",
-    TOPIC: "/topics"
+    TOPIC: "/topics",
+    QUESTION: "/questions",
+    ANSWER: "/answers"
 }
