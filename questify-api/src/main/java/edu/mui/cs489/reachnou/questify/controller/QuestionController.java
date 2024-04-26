@@ -44,4 +44,10 @@ public class QuestionController {
         var question = questionService.getQuestionById(id);
         return ResponseEntity.ok(question);
     }
+
+    @GetMapping("/topic/{topicId}")
+    public ResponseEntity<?> getRandomQuestionsByTopicId(@PathVariable Long topicId) {
+        var questions = questionService.getRandomQuestionsByTopicId(topicId);
+        return ResponseEntity.ok(questions);
+    }
 }

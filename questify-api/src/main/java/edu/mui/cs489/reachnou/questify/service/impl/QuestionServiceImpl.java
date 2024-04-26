@@ -11,6 +11,7 @@ import edu.mui.cs489.reachnou.questify.util.ModelMappingHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -64,5 +65,14 @@ public class QuestionServiceImpl implements QuestionService {
 
     private Question simpleGetQuestionById(Long id) {
         return questionRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Question not found"));
+    }
+
+    @Override
+    public List<QuestionDto> getRandomQuestionsByTopicId(Long topicId) {
+        var questions = questionRepository.findAllByTopicId(topicId);
+        Collections.shuffle(questions);
+        int numRandomQuestions = 10;
+        var randomQuestions = questions.subList(0, Math.min(numRandomQuestions, questions.size()));
+        return modelMappingHelper.convertEntityListToDtoList(randomQuestions, QuestionDto.class);
     }
 }

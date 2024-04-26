@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -46,6 +47,8 @@ public class SecurityConfig {
                                 "/questify/api/v1/tasks/**",
                                 "/questify/api/v1/challenges/**"
                         ).hasRole("USER")
+                        .requestMatchers(HttpMethod.GET, "/questify/api/v1/topics"
+                        ).hasAnyRole("USER", "ADMIN")
                         .requestMatchers(
                                 "/questify/api/v1/topics/**"
                         ).hasRole("ADMIN")

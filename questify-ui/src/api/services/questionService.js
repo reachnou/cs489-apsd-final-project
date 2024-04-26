@@ -1,21 +1,13 @@
 import { ENDPOINTS } from "../../constants/endpoints";
+import axiosInstance from "../axios";
 import apiService from "./apiServices";
 
 let questionServices = new apiService(ENDPOINTS.QUESTION);
 
-// Additional functions here
-// const getAllTasksByUserId = (userId) => {
-//     return axiosInstance.get(ENDPOINTS.TASK + `/user?userId=${userId}`)
-// }
+const getRandomQuestionByTopicId = (topicId) => {
+    return axiosInstance.get(ENDPOINTS.QUESTION + `/topic/${topicId}`)
+}
 
-// const createTask = (data) => {
-//     return axiosInstance.post(ENDPOINTS.TASK + `?userId=${userDetails.id}`, data)
-// }
-
-// const updateTasksById = (id, data) => {
-//     return axiosInstance.put(ENDPOINTS.TASK + `/${id}`, data)
-// }
-
-questionServices = {...questionServices};
+questionServices = {...questionServices, getRandomQuestionByTopicId};
 
 export default questionServices;

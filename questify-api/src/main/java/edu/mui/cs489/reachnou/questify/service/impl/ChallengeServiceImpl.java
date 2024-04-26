@@ -1,5 +1,6 @@
 package edu.mui.cs489.reachnou.questify.service.impl;
 
+import edu.mui.cs489.reachnou.questify.constants.ChallengeStatus;
 import edu.mui.cs489.reachnou.questify.dto.ChallengeDto;
 import edu.mui.cs489.reachnou.questify.dto.requests.ChallengeRequest;
 import edu.mui.cs489.reachnou.questify.entity.Challenge;
@@ -25,10 +26,17 @@ public class ChallengeServiceImpl implements ChallengeService {
     private final ModelMappingHelper<Challenge, ChallengeDto, ChallengeRequest> modelMappingHelper;
 
     @Override
-    public ChallengeDto createChallenge(ChallengeRequest ChallengeRequest, Long hostId, Long topicId) {
-        var challenge = modelMappingHelper.convertRequestToEntity(ChallengeRequest, Challenge.class);
-        var host = userRepository.findById(hostId).orElseThrow(() -> new UserNotFoundException("User ID " + hostId + " not found!"));
-        var topic = topicRepository.findById(topicId).orElseThrow(()-> new ResourceNotFoundException("Topic ID " + topicId + " not found!"));
+    public ChallengeDto createChallenge(ChallengeRequest ChallengeRequest) {
+        var challenge = Challenge.builder()
+                .challengeName(ChallengeRequest.getChallengeName())
+                .duration(ChallengeRequest.getDuration())
+                .challengeType(ChallengeRequest.getChallengeType())
+                .difficulty(ChallengeRequest.getDifficulty())
+                .challengeStatus(ChallengeStatus.NOT_YET_START)
+                .build();
+
+        var host = userRepository.findById(ChallengeRequest.getHostId()).orElseThrow(() -> new UserNotFoundException("User ID " + ChallengeRequest.getHostId() + " not found!"));
+        var topic = topicRepository.findById(ChallengeRequest.getTopicId()).orElseThrow(()-> new ResourceNotFoundException("Topic ID " + ChallengeRequest.getTopicId() + " not found!"));
 
         challenge.setHost(host);
         challenge.setTopic(topic);
@@ -69,6 +77,13 @@ public class ChallengeServiceImpl implements ChallengeService {
 
         var response = challengeRepository.save(oldChallenge);
         return modelMappingHelper.convertEntityToDto(response, ChallengeDto.class);
+    }
+
+    @Override
+    public List<ChallengeDto> getChallengesByUserId(Long userId) {
+        var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User ID " + userId + " not found!"));
+        var challenges = challengeRepository.findAllByHostId(user.getId());
+        return modelMappingHelper.convertEntityListToDtoList(challenges, ChallengeDto.class);
     }
 
     private Challenge simpleGetChallengeById(Long id) {

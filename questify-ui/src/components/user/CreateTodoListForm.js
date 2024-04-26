@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import TodoListTable from './TodoListTable';
 import store from '../../app/store';
-import { createTask, updateTaskById } from '../../features/task/TaskSlice';
+import { createTask, updateTask } from '../../features/task/TaskSlice';
 import Swal from 'sweetalert2';
 
 const CreateTodoListForm = () => {
   const [isUpdate, setIsUpdate] = useState("false");
+  const [refreshPage, setRefreshPage] = useState()
   const [taskId, setTaskId] = useState();
   const [formData, setFormData] = useState({
     name: '',
@@ -26,17 +27,17 @@ const CreateTodoListForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (isUpdate === "true") {
-      console.log("Data", formData);
-      store.dispatch(updateTaskById(taskId, formData)).then((res) => {
+      store.dispatch(updateTask({id: taskId, data: formData})).then((res) => {
         if (res?.payload) {
           Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "Your work has been saved",
             showConfirmButton: false,
             timer: 1500
           });
           setIsUpdate("false")
+          setRefreshPage(res?.payload)
           setFormData({
             name: '',
             description: '',
@@ -57,6 +58,7 @@ const CreateTodoListForm = () => {
             showConfirmButton: false,
             timer: 1500
           });
+          setRefreshPage(res?.payload)
           setFormData({
             name: '',
             description: '',
@@ -152,7 +154,7 @@ const CreateTodoListForm = () => {
                     <a href="#!" style={{ color: "#23af89" }} data-mdb-tooltip-init title="Ascending"><i
                       class="fas fa-sort-amount-down-alt ms-2"></i></a>
                   </div>
-                  <TodoListTable setIsUpdate={setIsUpdate} setFormData={setFormData} setTaskId={setTaskId}/>
+                  <TodoListTable setIsUpdate={setIsUpdate} setFormData={setFormData} setTaskId={setTaskId} refreshPage={refreshPage} />
                 </div>
               </div>
             </div>

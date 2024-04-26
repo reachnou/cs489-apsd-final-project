@@ -13,11 +13,8 @@ public class ChallengeController {
     private final ChallengeService challengeService;
 
     @PostMapping
-    public ResponseEntity<?> createChallenge(
-            @RequestBody ChallengeRequest challengeRequest,
-            @RequestParam(name = "hostId") Long hostId,
-            @RequestParam(name = "topicId") Long topicId) {
-        return ResponseEntity.ok(challengeService.createChallenge(challengeRequest, hostId, topicId));
+    public ResponseEntity<?> createChallenge(@RequestBody ChallengeRequest challengeRequest) {
+        return ResponseEntity.ok(challengeService.createChallenge(challengeRequest));
     }
 
     @GetMapping("/{id}")
@@ -38,5 +35,10 @@ public class ChallengeController {
     @PutMapping("/{id}")
     public ResponseEntity<?> updateTopicById(@RequestBody ChallengeRequest challengeRequest, @PathVariable Long id){
         return ResponseEntity.ok(challengeService.updateChallengeById(challengeRequest, id));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<?> getChallengesByUserId(@PathVariable Long userId) {
+        return ResponseEntity.ok(challengeService.getChallengesByUserId(userId));
     }
 }
