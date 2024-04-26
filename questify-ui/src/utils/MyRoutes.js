@@ -11,6 +11,7 @@ import ChallengePageInAdmin from "../pages/admin/ChallengePage";
 import TopicPage from "../pages/admin/TopicPage";
 import UserPage from "../pages/admin/UserPage";
 import TopicDetailsPage from "../pages/admin/TopicDetailsPage";
+import StartedChallengePage from "../pages/user/StartedChallengePage";
 
 export default function MyRoutes() {
     return useRoutes([
@@ -25,6 +26,7 @@ export default function MyRoutes() {
         {path: ROUTES.TOPIC, element: <TopicPage/>},
         {path: ROUTES.CHALLENGE_IN_ADMIN, element: <ChallengePageInAdmin/>},
         {path: ROUTES.USER, element: <UserPage/>},
-        {path: ROUTES.TOPIC_DETAILS, element: <TopicDetailsPage/>}
+        {path: ROUTES.TOPIC_DETAILS, element: <TopicDetailsPage/>},
+        {path: ROUTES.CHALLENGING, element: <StartedChallengePage/>}
     ])
 }

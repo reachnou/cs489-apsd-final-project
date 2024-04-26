@@ -14,10 +14,6 @@ const createTask = (data) => {
     return axiosInstance.post(ENDPOINTS.TASK + `?userId=${userDetails.id}`, data)
 }
 
-const updateTasksById = (id, data) => {
-    return axiosInstance.put(ENDPOINTS.TASK + `/${id}`, data)
-}
-
-taskServices = {...taskServices, getAllTasksByUserId, createTask, updateTasksById};
+taskServices = {...taskServices, getAllTasksByUserId, createTask};
 
 export default taskServices;

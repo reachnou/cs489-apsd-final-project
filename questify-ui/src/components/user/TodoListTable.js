@@ -4,7 +4,7 @@ import { deleteTaskById, getTaskByUserId } from "../../features/task/TaskSlice";
 import { userDetails } from "../../api/auth";
 import Swal from 'sweetalert2'
 
-function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
+function TodoListTable({ setIsUpdate, setFormData, setTaskId, refreshPage, isAtHome }) {
     const [tasks, setTasks] = useState();
     const tasksStore = store.getState().task.tasks
     const [refresh, setRefresh] = useState();
@@ -19,7 +19,7 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
             console.log("Store");
             setTasks(tasksStore)
         }
-    }, [refresh])
+    }, [refresh, refreshPage])
 
     function handleDeleteTask(task) {
         Swal.fire({
@@ -39,7 +39,7 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
                             text: "Your file has been deleted.",
                             icon: "success"
                         });
-                        setRefresh(res?.payload.id)
+                        setRefresh(res?.payload)
                     }
                 })
             }
@@ -47,7 +47,7 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
     }
 
     function handleUpdateTask(task) {
-        let data = {
+        const data = {
             name: task.name,
             description: task.description,
             deadline: task.deadline,
@@ -80,12 +80,12 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
                                 <th scope="col">Due</th>
                                 <th scope="col">Priority</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Actions</th>
+                                {isAtHome === undefined ? <th scope="col">Actions</th> : ""}
                             </tr>
                         </thead>
                         <tbody>
                             {tasks?.map((task) => (
-                                <tr className={task.status === "COMPLETED" ? "fw-normal table-success" : "fw-normal"} key={task.id}>
+                                <tr className={task.status === "COMPLETED" ? "fw-normal table-success hover-card" : "fw-normal hover-card"} key={task.id}>
                                     <th>
                                         <span className="ms-2">{task?.name}</span>
                                     </th>
@@ -116,14 +116,18 @@ function TodoListTable({ setIsUpdate, setFormData, setTaskId }) {
                                             </span>
                                         </h6>
                                     </td>
-                                    <td className="align-middle">
-                                        <span data-mdb-tooltip-init title="Done"><i
-                                            className="fas fa-check fa-lg text-success me-3"></i></span>
-                                        <span onClick={() => handleUpdateTask(task)} data-mdb-tooltip-init title="Edit"><i
-                                            className="fas fa-pen-to-square fa-lg text-warning me-3"></i></span>
-                                        <span onClick={() => handleDeleteTask(task)} data-mdb-tooltip-init title="Remove"><i
-                                            className="fas fa-trash-alt fa-lg text-danger"></i></span>
-                                    </td>
+                                    {isAtHome === undefined ?
+                                        <td className="align-middle">
+                                            {/* <span data-mdb-tooltip-init title="Done"><i
+                                            className="fas fa-check fa-lg text-success me-3"></i></span> */}
+                                            <span onClick={() => handleUpdateTask(task)} data-mdb-tooltip-init title="Edit"><i
+                                                className="fas fa-pen-to-square fa-lg text-warning me-3"></i></span>
+                                            <span onClick={() => handleDeleteTask(task)} data-mdb-tooltip-init title="Remove"><i
+                                                className="fas fa-trash-alt fa-lg text-danger"></i></span>
+                                        </td>
+                                        :
+                                        ""
+                                    }
                                 </tr>
                             ))}
                         </tbody>

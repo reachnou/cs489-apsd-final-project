@@ -32,7 +32,7 @@ const CreateTopicForm = () => {
         store.dispatch(createTopic(formData)).then((res) => {
             if (res?.payload) {
                 Swal.fire({
-                    position: "top-end",
+                    position: "center",
                     icon: "success",
                     title: "Your work has been saved",
                     showConfirmButton: false,
@@ -41,7 +41,7 @@ const CreateTopicForm = () => {
                 setFormData({
                     name: '',
                 })
-                setRefresh(res?.payload?.id)
+                setRefresh(res?.payload)
             }
         })
     }

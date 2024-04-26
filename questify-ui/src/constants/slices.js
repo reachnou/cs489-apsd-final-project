@@ -2,5 +2,6 @@ export const SLICES = {
     TASK: "task",
     TOPIC: "topic",
     QUESTION: "question",
-    ANSWER: "answer"
+    ANSWER: "answer",
+    CHALLENGE: "challenge"
 }

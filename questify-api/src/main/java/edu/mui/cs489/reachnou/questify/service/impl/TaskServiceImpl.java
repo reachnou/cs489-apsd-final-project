@@ -65,7 +65,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public TaskDto updateTaskById(TaskRequest taskRequest, Long id) {
+    public TaskDto updateTaskById(Long id, TaskRequest taskRequest) {
         var oldTask = simpleFindTaskById(id);
 
         LocalDateTime userDateTime = LocalDateTime.parse(taskRequest.getDeadline().toString(), DateTimeFormatter.ISO_LOCAL_DATE_TIME);

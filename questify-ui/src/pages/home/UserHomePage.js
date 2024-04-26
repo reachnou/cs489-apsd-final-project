@@ -1,9 +1,11 @@
 // import Footer from "../../components/Footer";
+import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/user/Sidebar";
 import TodoListTable from "../../components/user/TodoListTable";
 
 function UserHomePage() {
+    const [isAtHome, setIsAtHome] = useState(true)
     return (
         <div>
             <Navbar/>
@@ -13,7 +15,7 @@ function UserHomePage() {
                 </div>
                 <div className="col-10">
                     <h1>Homepage</h1>
-                    <TodoListTable/>
+                    <TodoListTable isAtHome={isAtHome}/>
                 </div>
             </div>
             {/* <Footer/> */}

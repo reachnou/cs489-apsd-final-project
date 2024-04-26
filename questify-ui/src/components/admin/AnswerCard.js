@@ -23,7 +23,7 @@ const AnswerCard = ({ answer, setRefresh }) => {
                             text: "Your file has been deleted.",
                             icon: "success"
                         });
-                        setRefresh(res?.payload?.id)
+                        setRefresh(res?.payload)
                     }
                 })
             }

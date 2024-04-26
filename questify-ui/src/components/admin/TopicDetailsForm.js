@@ -33,7 +33,7 @@ const TopicDetailsForm = () => {
             const top = topics?.filter(t => t.id == id)
             setTopic(top[0])
         }
-    }, [id, refresh])
+    }, [refresh, id])
 
     const handlerSetIsEditTopic = () => {
         setIsEditTopic(current => !current)
@@ -94,12 +94,12 @@ const TopicDetailsForm = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+                    setRefresh(res?.payload)
                     setFormData({
                         content: '',
                         difficulty: '',
                         topicId: id,
                     })
-                    setRefresh(res?.payload?.id)
                 }
             })
         }

@@ -1,5 +1,6 @@
 // import Footer from "../components/Footer";
 import Navbar from "../../components/Navbar";
+import CreateChallengeForm from "../../components/user/CreateChallengeForm";
 import Sidebar from "../../components/user/Sidebar";
 
 function ChallengePage() {
@@ -11,7 +12,7 @@ function ChallengePage() {
                     <Sidebar/>
                 </div>
                 <div className="col-10">
-                    <h1>ChallengePage</h1>
+                    <CreateChallengeForm/>
                 </div>
             </div>
             {/* <Footer/> */}

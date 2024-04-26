@@ -56,7 +56,7 @@ const QuestionCard = ({ question, handlerSetIsUpdateQuestion, setRefresh, setFor
                             text: "Your file has been deleted.",
                             icon: "success"
                         });
-                        setRefresh(res?.payload?.id)
+                        setRefresh(res?.payload)
                     }
                 })
             }
@@ -89,7 +89,7 @@ const QuestionCard = ({ question, handlerSetIsUpdateQuestion, setRefresh, setFor
                     answerState: '',
                     questionId: question?.id,
                 })
-                setRefresh(res?.payload?.id)
+                setRefresh(res?.payload)
             }
         })
     };

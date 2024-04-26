@@ -21,7 +21,7 @@ export const taskSlice = createSlice({
             let afterDeleted = state.tasks.filter(task => task.id !== action.payload.id)
             state.tasks = [...afterDeleted]
         })
-        .addCase(updateTaskById.fulfilled, (state, action) => {
+        .addCase(updateTask.fulfilled, (state, action) => {
             let afterDeleted = state.tasks.filter(task => task.id !== action.payload.id)
             state.tasks = [...afterDeleted, action.payload]
         })
@@ -52,9 +52,9 @@ export const deleteTaskById = createAsyncThunk(
     }
 )
 
-export const updateTaskById = createAsyncThunk(
-    "/tasks/updateTaskById",
-    async (id, data) => {
+export const updateTask = createAsyncThunk(
+    "/tasks/updateTask",
+    async ({id, data}) => {
         const response = await taskServices.update(id, data)
         return response.data
     }

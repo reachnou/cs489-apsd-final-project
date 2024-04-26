@@ -12,4 +12,6 @@ public class ChallengeRequest {
     private ChallengeType challengeType;
     private Difficulty difficulty;
     private ChallengeStatus challengeStatus;
+    private Long hostId;
+    private Long topicId;
 }

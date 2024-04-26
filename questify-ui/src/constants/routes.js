@@ -9,7 +9,8 @@ export const ROUTES = {
     TOPIC: "/topics",
     CHALLENGE_IN_ADMIN: "/challenges/list",
     USER: "/users",
-    TOPIC_DETAILS: "/topics/:id"
+    TOPIC_DETAILS: "/topics/:id",
+    CHALLENGING: "/challenge/:id"
 
 }
 
