@@ -1,4 +1,4 @@
-POST localhost:8080/questify/api/v1/auth/register
+POST 18.216.201.227:8080/questify/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ###
 
-POST localhost:8080/questify/api/v1/auth/register
+POST 18.216.201.227:8080/questify/api/v1/auth/register
 Content-Type: application/json
 
 {

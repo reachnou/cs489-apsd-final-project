@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/questify/api/v1/answers")
-@CrossOrigin
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AnswerController {
 
     private final AnswerService answerService;

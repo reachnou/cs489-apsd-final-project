@@ -4,6 +4,7 @@ import axios from './axios';
 export const login = async (data) => {
     try {
         const response = await axios.post('/auth/login', data);
+        console.log("Login Res: ", response);
         return response.data;
     } catch (error) {
         console.error('Login failed:', error);
