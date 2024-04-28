@@ -2,7 +2,7 @@ import axios from "axios";
 import { header } from "./header";
 
 const axiosInstance = axios.create({
-    baseURL: "http://3.16.108.238:8080/questify/api/v1",
+    baseURL: "http://localhost:8080/questify/api/v1",
     timeout: 10000,
     headers: header()
 });
@@ -15,4 +15,4 @@ axiosInstance.interceptors.response.use(
     }
 );
 
-export default axiosInstance;
+export default axiosInstance

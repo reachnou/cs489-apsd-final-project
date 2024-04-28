@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/questify/api/v1/auth")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class AuthController {
 
     private final AuthService authService;

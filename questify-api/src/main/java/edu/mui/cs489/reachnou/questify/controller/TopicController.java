@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/questify/api/v1/topics")
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin
 public class TopicController {
     private final TopicService topicService;
 

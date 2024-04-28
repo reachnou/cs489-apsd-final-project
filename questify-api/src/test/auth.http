@@ -1,4 +1,4 @@
-POST 18.191.118.13:8080/questify/api/v1/auth/register
+POST localhost:8080/questify/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -15,7 +15,7 @@ Content-Type: application/json
 
 ###
 
-POST 18.191.118.13:8080/questify/api/v1/auth/register
+POST localhost:8080/questify/api/v1/auth/register
 Content-Type: application/json
 
 {
@@ -32,7 +32,7 @@ Content-Type: application/json
 
 ###
 
-POST localhost:8080/questify/api/v1/auth/login
+POST https://questify-api.azurewebsites.net/questify/api/v1/auth/login
 Content-Type: application/json
 
 {

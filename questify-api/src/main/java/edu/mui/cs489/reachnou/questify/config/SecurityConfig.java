@@ -43,17 +43,17 @@ public class SecurityConfig {
                                 "/swagger-ui**/**"
                         )
                         .permitAll()
-                        .requestMatchers(
-                                "/questify/api/v1/tasks/**",
-                                "/questify/api/v1/challenges/**"
-                        ).hasRole("USER")
-                        .requestMatchers(HttpMethod.GET, "/questify/api/v1/topics"
-                        ).hasAnyRole("USER", "ADMIN")
-                        .requestMatchers(
-                                "/questify/api/v1/topics/**"
-                        ).hasRole("ADMIN")
-                        .anyRequest()
-                        .authenticated()
+//                        .requestMatchers(
+//                                "/questify/api/v1/tasks/**",
+//                                "/questify/api/v1/challenges/**"
+//                        ).hasRole("USER")
+//                        .requestMatchers(HttpMethod.GET, "/questify/api/v1/topics"
+//                        ).hasAnyRole("USER", "ADMIN")
+//                        .requestMatchers(
+//                                "/questify/api/v1/topics/**"
+//                        ).hasRole("ADMIN")
+//                        .anyRequest()
+//                        .authenticated()
                 )
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
